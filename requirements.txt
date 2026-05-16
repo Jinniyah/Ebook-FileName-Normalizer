@@ -1,0 +1,11 @@
+
+# requirements.txt
+
+ebooklib
+beautifulsoup4
+lxml
+openai
+python-dotenv
+pytest
+mypy
+black
