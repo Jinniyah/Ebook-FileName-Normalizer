@@ -1,0 +1,33 @@
+# gitignore file to exclude sensitive and unnecessary files from being tracked by Git
+
+# Virtual environment
+.venv/
+venv/
+
+# Environment variables
+.env
+
+# Pytest cache
+.pytest_cache/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Coverage files
+.coverage
+htmlcov/
+
+# IDE cruft
+.vscode/
+.idea/
+
+# Build artifacts
+*.csv
+
+# Test Data
+
+TestData/
+/.vs
+/state.json
