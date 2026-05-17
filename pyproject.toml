@@ -1,3 +1,12 @@
+[project]
+name = "ebook-normalizer"
+version = "0.1.0"
+description = "Local-first, AI-assisted EPUB metadata enrichment and filename normalization pipeline."
+authors = [{ name = "Jennifer" }]
+requires-python = ">=3.11"
+readme = "README.md"
+license = { file = "LICENSE.txt" }
+
 [tool.black]
 line-length = 88
 target-version = ["py311"]
@@ -5,6 +14,8 @@ target-version = ["py311"]
 [tool.ruff]
 line-length = 88
 target-version = "py311"
+
+[tool.ruff.lint]
 select = ["E", "F", "I", "B"]
 ignore = []
 
@@ -15,3 +26,4 @@ ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 python_files = "test_*.py"
+testpaths = ["tests"]

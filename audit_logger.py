@@ -1,10 +1,12 @@
 import csv
 import os
-from typing import Dict, Any
+from datetime import datetime, timezone
+from typing import Any, Dict
 
 from config import AUDIT_LOG
 
 HEADER = [
+    "timestamp",
     "original_filename",
     "new_filename",
     "title",
@@ -19,26 +21,21 @@ HEADER = [
 
 
 def init_audit_log() -> None:
+    """Create the audit log CSV with headers if it does not already exist."""
     if not os.path.exists(AUDIT_LOG):
         with open(AUDIT_LOG, "w", newline="", encoding="utf-8") as f:
-            writer = csv.writer(f)
-            writer.writerow(HEADER)
+            writer = csv.DictWriter(f, fieldnames=HEADER, extrasaction="ignore")
+            writer.writeheader()
 
 
 def write_audit_row(row: Dict[str, Any]) -> None:
+    """Append a single action record to the audit log.
+
+    The ``timestamp`` field is injected automatically (UTC ISO 8601).
+    Any extra keys in *row* are silently ignored so callers don't need to
+    be updated when the schema gains new optional columns.
+    """
+    row.setdefault("timestamp", datetime.now(timezone.utc).isoformat())
     with open(AUDIT_LOG, "a", newline="", encoding="utf-8") as f:
-        writer = csv.writer(f)
-        writer.writerow(
-            [
-                row.get("original_filename"),
-                row.get("new_filename"),
-                row.get("title"),
-                row.get("author_first"),
-                row.get("author_last"),
-                row.get("series"),
-                row.get("series_number"),
-                row.get("ai_used"),
-                row.get("renamed"),
-                row.get("skipped_reason"),
-            ]
-        )
+        writer = csv.DictWriter(f, fieldnames=HEADER, extrasaction="ignore")
+        writer.writerow(row)

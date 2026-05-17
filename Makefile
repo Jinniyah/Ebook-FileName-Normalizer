@@ -6,10 +6,10 @@ venv:
 	python -m venv .venv
 
 activate:
-	@echo "To activate your venv:"
-	@echo "PowerShell: .\\.venv\\Scripts\\Activate.ps1"
-	@echo "CMD:        .\\.venv\\Scripts\\activate.bat"
-	@echo "Linux/Mac:  source .venv/bin/activate"
+	@echo "To activate your virtual environment:"
+	@echo "  PowerShell:  .\\.venv\\Scripts\\Activate.ps1"
+	@echo "  CMD:         .\\.venv\\Scripts\\activate.bat"
+	@echo "  macOS/Linux: source .venv/bin/activate"
 
 # -----------------------------
 # Install dependencies
@@ -24,23 +24,41 @@ install:
 # -----------------------------
 
 test:
-	.venv\Scripts\pytest
+	.venv\Scripts\pytest -v
 
 # -----------------------------
 # Linting & formatting
 # -----------------------------
 
-lint:	
+lint:
+	.venv\Scripts\ruff check .
 	.venv\Scripts\black --check .
 
 format:
 	.venv\Scripts\black .
+	.venv\Scripts\ruff check . --fix
 
-fix:
-	.venv\Scripts\black .
+typecheck:
+	.venv\Scripts\mypy .
+
+# Run all quality checks (lint + types + tests)
+check: lint typecheck test
 
 # -----------------------------
-# Run everything
+# Run the tool
 # -----------------------------
 
-all: lint test
+dry-run:
+	.venv\Scripts\python main.py --dry-run
+
+run:
+	.venv\Scripts\python main.py --live
+
+# -----------------------------
+# Maintenance
+# -----------------------------
+
+reset-state:
+	.venv\Scripts\python main.py --reset-state --dry-run
+
+all: check

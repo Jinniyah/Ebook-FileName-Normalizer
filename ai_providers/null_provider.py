@@ -1,14 +1,22 @@
 from typing import Any, Dict
+
 from .base import AIProvider
 
 
 class NullProvider(AIProvider):
-    """Fallback provider used when no API key is available."""
+    """Fallback provider used when no API key is available.
+
+    Returns whatever metadata was already embedded in the EPUB without
+    making any external calls.  Useful for offline use or testing the
+    pipeline without incurring API costs.
+    """
 
     def identify_book(
-        self, metadata: Dict[str, Any], text_sample: str
+        self,
+        filename: str,
+        metadata: Dict[str, Any],
+        text_sample: str,
     ) -> Dict[str, Any]:
-        # Return metadata unchanged
         return {
             "title": metadata.get("title"),
             "author_first": None,
