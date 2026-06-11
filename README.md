@@ -1,8 +1,8 @@
-# 📚 Ebook-Normalizer
+# epub-renamer
 
 > **Local-first, AI-assisted metadata enrichment and filename normalization pipeline for EPUB libraries.**
 
-Ebook-Normalizer scans a folder of `.epub` files, extracts embedded metadata and content samples, enriches missing or malformed fields using a pluggable LLM provider, and renames each file into a consistent, library-sortable format:
+epub-renamer scans a folder of `.epub` files, extracts embedded metadata and content samples, enriches missing or malformed fields using a pluggable LLM provider, and renames each file into a consistent, library-sortable format:
 
 ```
 Lastname, Firstname — Series #01 — Title.epub
@@ -13,7 +13,7 @@ Designed for personal ebook libraries with messy, inconsistent filenames from DR
 
 ---
 
-## ✨ Features
+## Features
 
 | Feature | Description |
 |---|---|
@@ -29,7 +29,7 @@ Designed for personal ebook libraries with messy, inconsistent filenames from DR
 
 ---
 
-## 🏛️ Architecture
+## Architecture
 
 ```
 EPUB Files
@@ -68,14 +68,14 @@ EPUB Files
 
 ---
 
-## 📦 Installation
+## Installation
 
 **Prerequisites:** Python 3.11+, an OpenAI API key (optional — the `NullProvider` fallback works without one)
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/your-username/Ebook-Normalizer.git
-cd Ebook-Normalizer
+git clone https://github.com/your-username/epub-renamer.git
+cd epub-renamer
 
 # 2. Create and activate a virtual environment
 python -m venv .venv
@@ -102,7 +102,7 @@ make install
 
 ---
 
-## 🔧 Configuration
+## Configuration
 
 ```bash
 cp .env.example .env
@@ -136,7 +136,7 @@ DEBUG_AI=false              # true = print raw LLM JSON to stdout
 
 ---
 
-## ▶️ Usage
+## Usage
 
 ```bash
 # Preview proposed renames (no files touched)
@@ -172,7 +172,7 @@ python main.py --live
 
 ---
 
-## 🧪 Testing
+## Testing
 
 ```bash
 pytest -v
@@ -192,7 +192,7 @@ All external API calls and filesystem writes are mocked — the suite runs fully
 
 ---
 
-## 🧹 Linting & Formatting
+## Linting & Formatting
 
 ```bash
 # Format code
@@ -216,10 +216,10 @@ Tool configuration lives in `pyproject.toml`:
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
-Ebook-Normalizer/
+epub-renamer/
 ├── ai_providers/               # Pluggable LLM provider layer
 │   ├── base.py                 # Abstract AIProvider interface
 │   ├── registry.py             # Provider registry — add new providers here
@@ -250,7 +250,7 @@ Ebook-Normalizer/
 
 ---
 
-## 🔌 Adding a New AI Provider
+## Adding a New AI Provider
 
 The provider system uses a registry pattern — adding a backend requires changes to exactly two files.
 
@@ -293,7 +293,7 @@ PROVIDERS = {
 
 ---
 
-## 📊 Audit Log Schema
+## Audit Log Schema
 
 Every file is recorded in `audit_log.csv` regardless of outcome:
 
@@ -313,7 +313,7 @@ Every file is recorded in `audit_log.csv` regardless of outcome:
 
 ---
 
-## 🛡️ Security & Privacy
+## Security & Privacy
 
 See [`THREAT_MODEL.md`](THREAT_MODEL.md) for the full STRIDE analysis. Key points:
 
@@ -325,18 +325,18 @@ See [`THREAT_MODEL.md`](THREAT_MODEL.md) for the full STRIDE analysis. Key point
 
 ---
 
-## 🧠 Design Decisions
+## Design Decisions
 
 See [`DESIGN_DECISIONS.md`](DESIGN_DECISIONS.md) for rationale on all key architectural choices: provider abstraction, state management, audit log schema, filename format, prompt design, and more.
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 See [`CONTRIBUTING.md`](CONTRIBUTING.md) for development setup and the guide for adding new AI providers.
 
 ---
 
-## 📄 License
+## License
 
 MIT License — see [`LICENSE.txt`](LICENSE.txt) for details.
